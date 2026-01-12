@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Leaf, Camera, Target, Sparkles } from "lucide-react";
+import { Zap, Camera, Target, Sparkles } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -9,10 +9,10 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <div className="max-w-lg mx-auto px-4 py-12 text-center">
         <div className="w-20 h-20 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-6">
-          <Leaf className="w-10 h-10 text-primary-foreground" />
+          <Zap className="w-10 h-10 text-primary-foreground" />
         </div>
         
-        <h1 className="text-4xl font-display font-bold mb-4">NutriScan</h1>
+        <h1 className="text-4xl font-display font-bold mb-4">Coloxy</h1>
         <p className="text-xl text-muted-foreground mb-8">
           AI-powered calorie tracking for Indian food
         </p>
@@ -35,7 +35,6 @@ const Index = () => {
         <Button onClick={() => navigate("/auth")} size="lg" className="w-full h-14 text-lg">
           Get Started
         </Button>
-        <p className="text-sm text-muted-foreground mt-4">₹260/month for unlimited scans</p>
       </div>
     </div>
   );
