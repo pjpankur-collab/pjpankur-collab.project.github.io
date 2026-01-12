@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { useProfile } from "@/hooks/useProfile";
 import { useFoodLogs, useDeleteFoodLog } from "@/hooks/useFoodLogs";
 import ProfileDropdown from "@/components/ProfileDropdown";
-import { Zap, Camera, Flame, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
+import { ScanLine, Camera, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 const Dashboard = () => {
@@ -59,7 +59,7 @@ const Dashboard = () => {
         <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-              <Zap className="w-5 h-5 text-primary-foreground" />
+              <ScanLine className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="font-display font-bold text-lg">Coloxy</span>
           </div>
