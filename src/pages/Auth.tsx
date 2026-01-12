@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { Zap, Eye, EyeOff, Loader2 } from "lucide-react";
+import { ScanLine, Eye, EyeOff, Loader2 } from "lucide-react";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -50,7 +50,7 @@ const Auth = () => {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4">
-            <Zap className="w-8 h-8 text-primary-foreground" />
+            <ScanLine className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="text-3xl font-display font-bold text-foreground">Coloxy</h1>
           <p className="text-muted-foreground mt-2">Track your calories with AI-powered food scanning</p>
