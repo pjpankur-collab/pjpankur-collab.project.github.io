@@ -1,18 +1,15 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { useAuth } from "@/contexts/AuthContext";
 import { useProfile } from "@/hooks/useProfile";
 import { useFoodLogs, useDeleteFoodLog } from "@/hooks/useFoodLogs";
-import { Leaf, Camera, LogOut, Flame, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
+import ProfileDropdown from "@/components/ProfileDropdown";
+import { Zap, Camera, Flame, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
   const { data: profile, isLoading: profileLoading } = useProfile();
   const { data: foodLogs = [], isLoading: logsLoading } = useFoodLogs();
   const deleteFoodLog = useDeleteFoodLog();
@@ -27,11 +24,6 @@ const Dashboard = () => {
     }),
     { calories: 0, protein: 0, carbs: 0, fat: 0 }
   );
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/auth");
-  };
 
   const handleDeleteLog = async (id: string) => {
     try {
@@ -67,9 +59,9 @@ const Dashboard = () => {
         <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-              <Leaf className="w-5 h-5 text-primary-foreground" />
+              <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-display font-bold text-lg">NutriScan</span>
+            <span className="font-display font-bold text-lg">Coloxy</span>
           </div>
           <div className="flex items-center gap-2">
             {!profile?.is_subscribed && (
@@ -83,18 +75,22 @@ const Dashboard = () => {
                 Premium
               </Button>
             )}
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={handleSignOut}
-            >
-              <LogOut className="w-5 h-5" />
-            </Button>
+            <ProfileDropdown />
           </div>
         </div>
       </div>
 
       <div className="max-w-lg mx-auto px-4 py-6 space-y-6">
+        {/* Welcome message with user name */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-display font-bold">
+              Hi, {profile?.full_name?.split(" ")[0] || "there"}! 👋
+            </h1>
+            <p className="text-muted-foreground text-sm">Track your meals today</p>
+          </div>
+        </div>
+
         {/* Daily Progress Card */}
         <Card className="border-0 shadow-lg overflow-hidden">
           <div className="bg-gradient-to-br from-primary to-primary/80 p-6 text-primary-foreground">

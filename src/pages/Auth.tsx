@@ -5,13 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { Leaf, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Zap, Eye, EyeOff, Loader2 } from "lucide-react";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signUp, signIn } = useAuth();
@@ -23,11 +23,11 @@ const Auth = () => {
 
     try {
       if (isSignUp) {
-        const { error } = await signUp(email, password, fullName);
+        const { error } = await signUp(email, password, name);
         if (error) {
           toast.error(error.message);
         } else {
-          toast.success("Account created! Welcome to NutriScan.");
+          toast.success("Account created! Welcome to Coloxy.");
           navigate("/onboarding");
         }
       } else {
@@ -50,9 +50,9 @@ const Auth = () => {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4">
-            <Leaf className="w-8 h-8 text-primary-foreground" />
+            <Zap className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-display font-bold text-foreground">NutriScan</h1>
+          <h1 className="text-3xl font-display font-bold text-foreground">Coloxy</h1>
           <p className="text-muted-foreground mt-2">Track your calories with AI-powered food scanning</p>
         </div>
 
@@ -71,12 +71,12 @@ const Auth = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {isSignUp && (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Full Name</label>
+                  <label className="text-sm font-medium text-foreground">Name</label>
                   <Input
                     type="text"
-                    placeholder="John Doe"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Enter your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required={isSignUp}
                     className="h-12"
                   />
@@ -115,6 +115,15 @@ const Auth = () => {
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
+                {!isSignUp && (
+                  <button
+                    type="button"
+                    onClick={() => navigate("/forgot-password")}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Forgot password?
+                  </button>
+                )}
               </div>
 
               <Button
@@ -145,11 +154,6 @@ const Auth = () => {
             </div>
           </CardContent>
         </Card>
-
-        {/* Pricing hint */}
-        <p className="text-center text-sm text-muted-foreground mt-6">
-          Premium: ₹260/month for unlimited scans
-        </p>
       </div>
     </div>
   );
