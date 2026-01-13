@@ -1,1 +1,10 @@
 project_id = "ixzgwqezedfhauavejuq"
+
+[functions.create-razorpay-order]
+verify_jwt = false
+
+[functions.verify-razorpay-payment]
+verify_jwt = false
+
+[functions.analyze-food]
+verify_jwt = false
