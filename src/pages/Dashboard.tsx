@@ -7,7 +7,7 @@ import { useFoodLogs, useDeleteFoodLog } from "@/hooks/useFoodLogs";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { Camera, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import coloxyLogo from "@/assets/coloxy-logo.jpg";
+import coloxyLogo from "@/assets/coloxy-logo.png";
 
 const Dashboard = () => {
   const navigate = useNavigate();
