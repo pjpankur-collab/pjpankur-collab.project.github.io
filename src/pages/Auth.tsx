@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { ScanLine, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import coloxyLogo from "@/assets/coloxy-logo.jpg";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -49,10 +50,11 @@ const Auth = () => {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4">
-            <ScanLine className="w-8 h-8 text-primary-foreground" />
-          </div>
-          <h1 className="text-3xl font-display font-bold text-foreground">Coloxy</h1>
+          <img 
+            src={coloxyLogo} 
+            alt="Coloxy" 
+            className="h-20 mx-auto mb-4 object-contain"
+          />
           <p className="text-muted-foreground mt-2">Track your calories with AI-powered food scanning</p>
         </div>
 
