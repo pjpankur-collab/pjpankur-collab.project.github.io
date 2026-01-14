@@ -5,8 +5,9 @@ import { Progress } from "@/components/ui/progress";
 import { useProfile } from "@/hooks/useProfile";
 import { useFoodLogs, useDeleteFoodLog } from "@/hooks/useFoodLogs";
 import ProfileDropdown from "@/components/ProfileDropdown";
-import { ScanLine, Camera, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
+import { Camera, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import coloxyLogo from "@/assets/coloxy-logo.jpg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -57,12 +58,11 @@ const Dashboard = () => {
       {/* Header */}
       <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-              <ScanLine className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="font-display font-bold text-lg">Coloxy</span>
-          </div>
+          <img 
+            src={coloxyLogo} 
+            alt="Coloxy" 
+            className="h-10 object-contain"
+          />
           <div className="flex items-center gap-2">
             {!profile?.is_subscribed && (
               <Button
