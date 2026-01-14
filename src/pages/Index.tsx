@@ -12,8 +12,9 @@ const Index = () => {
         <img 
           src={coloxyLogo} 
           alt="Coloxy" 
-          className="h-24 mx-auto mb-6 object-contain"
+          className="h-20 mx-auto mb-2 object-contain"
         />
+        <h1 className="text-3xl font-display font-bold mb-4">Coloxy</h1>
         <p className="text-xl text-muted-foreground mb-8">
           AI-powered calorie tracking for Indian food
         </p>
