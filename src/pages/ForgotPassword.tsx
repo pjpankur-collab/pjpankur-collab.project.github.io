@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ScanLine, ArrowLeft, Loader2, Mail } from "lucide-react";
+import { ArrowLeft, Loader2, Mail } from "lucide-react";
+import coloxyLogo from "@/assets/coloxy-logo.jpg";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -38,9 +39,11 @@ const ForgotPassword = () => {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4">
-            <ScanLine className="w-8 h-8 text-primary-foreground" />
-          </div>
+          <img 
+            src={coloxyLogo} 
+            alt="Coloxy" 
+            className="h-16 mx-auto mb-2 object-contain"
+          />
           <h1 className="text-3xl font-display font-bold text-foreground">Coloxy</h1>
         </div>
 

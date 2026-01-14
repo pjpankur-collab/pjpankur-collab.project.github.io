@@ -58,11 +58,14 @@ const Dashboard = () => {
       {/* Header */}
       <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
-          <img 
-            src={coloxyLogo} 
-            alt="Coloxy" 
-            className="h-10 object-contain"
-          />
+          <div className="flex items-center gap-2">
+            <img 
+              src={coloxyLogo} 
+              alt="Coloxy" 
+              className="h-10 object-contain"
+            />
+            <span className="font-display font-bold text-lg">Coloxy</span>
+          </div>
           <div className="flex items-center gap-2">
             {!profile?.is_subscribed && (
               <Button

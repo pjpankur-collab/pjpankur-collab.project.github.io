@@ -53,8 +53,9 @@ const Auth = () => {
           <img 
             src={coloxyLogo} 
             alt="Coloxy" 
-            className="h-20 mx-auto mb-4 object-contain"
+            className="h-16 mx-auto mb-2 object-contain"
           />
+          <h1 className="text-3xl font-display font-bold text-foreground">Coloxy</h1>
           <p className="text-muted-foreground mt-2">Track your calories with AI-powered food scanning</p>
         </div>
 
