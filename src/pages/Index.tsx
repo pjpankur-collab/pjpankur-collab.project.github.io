@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Camera, Target, Sparkles } from "lucide-react";
-import coloxyLogo from "@/assets/coloxy-logo.jpg";
+import coloxyLogo from "@/assets/coloxy-logo.png";
 
 const Index = () => {
   const navigate = useNavigate();

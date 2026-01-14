@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import coloxyLogo from "@/assets/coloxy-logo.jpg";
+import coloxyLogo from "@/assets/coloxy-logo.png";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
