@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,8 +15,18 @@ const Auth = () => {
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { signUp, signIn } = useAuth();
+  const pendingNavigation = useRef<string | null>(null);
+  const { signUp, signIn, user } = useAuth();
   const navigate = useNavigate();
+
+  // Navigate once user state is updated
+  useEffect(() => {
+    if (user && pendingNavigation.current) {
+      const destination = pendingNavigation.current;
+      pendingNavigation.current = null;
+      navigate(destination);
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,20 +37,22 @@ const Auth = () => {
         const { error } = await signUp(email, password, name);
         if (error) {
           toast.error(error.message);
+          setLoading(false);
         } else {
           toast.success("Account created! Welcome to Coloxy.");
-          navigate("/onboarding");
+          pendingNavigation.current = "/onboarding";
         }
       } else {
         const { error } = await signIn(email, password);
         if (error) {
           toast.error(error.message);
+          setLoading(false);
         } else {
           toast.success("Welcome back!");
-          navigate("/dashboard");
+          pendingNavigation.current = "/dashboard";
         }
       }
-    } finally {
+    } catch {
       setLoading(false);
     }
   };
