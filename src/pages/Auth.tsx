@@ -24,7 +24,8 @@ const Auth = () => {
     if (user && pendingNavigation.current) {
       const destination = pendingNavigation.current;
       pendingNavigation.current = null;
-      navigate(destination);
+      setLoading(false);
+      navigate(destination, { replace: true });
     }
   }, [user, navigate]);
 
