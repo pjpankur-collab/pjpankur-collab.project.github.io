@@ -7,7 +7,7 @@ import { useFoodLogs, useDeleteFoodLog } from "@/hooks/useFoodLogs";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { Camera, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import coloxyLogo from "@/assets/coloxy-logo.png";
+import Logo from "@/components/Logo";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -58,11 +58,7 @@ const Dashboard = () => {
       {/* Header */}
       <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
-          <img 
-            src={coloxyLogo} 
-            alt="Coloxy" 
-            className="h-10 object-contain"
-          />
+          <Logo size="sm" />
           <div className="flex items-center gap-2">
             {!profile?.is_subscribed && (
               <Button

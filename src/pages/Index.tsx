@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Camera, Target, Sparkles } from "lucide-react";
-import coloxyLogo from "@/assets/coloxy-logo.png";
+import Logo from "@/components/Logo";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -9,11 +9,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-lg mx-auto px-4 py-12 text-center">
-        <img 
-          src={coloxyLogo} 
-          alt="Coloxy" 
-          className="h-24 mx-auto mb-6 object-contain"
-        />
+        <Logo size="lg" className="justify-center mb-6" />
         <p className="text-xl text-muted-foreground mb-8">
           AI-powered calorie tracking for Indian food
         </p>
