@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import coloxyLogo from "@/assets/coloxy-logo.png";
+import Logo from "@/components/Logo";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -63,11 +63,7 @@ const Auth = () => {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <img 
-            src={coloxyLogo} 
-            alt="Coloxy" 
-            className="h-20 mx-auto mb-4 object-contain"
-          />
+          <Logo size="lg" className="justify-center mb-4" />
           <p className="text-muted-foreground mt-2">Track your calories with AI-powered food scanning</p>
         </div>
 
