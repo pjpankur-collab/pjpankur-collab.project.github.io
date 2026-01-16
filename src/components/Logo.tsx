@@ -20,7 +20,7 @@ const Logo = ({ size = "md", className }: LogoProps) => {
   };
 
   return (
-    <div className={cn("flex items-center gap-0.5 animate-fade-in", className)}>
+    <div className={cn("flex items-center gap-0 animate-fade-in", className)}>
       <img 
         src={coloxyLogo} 
         alt="Coloxy" 
