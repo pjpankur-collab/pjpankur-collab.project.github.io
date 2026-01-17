@@ -8,6 +8,7 @@ import ProfileDropdown from "@/components/ProfileDropdown";
 import { Camera, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Logo from "@/components/Logo";
+import MealSuggestions from "@/components/MealSuggestions";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -134,6 +135,14 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Meal Suggestions */}
+        <MealSuggestions
+          remainingCalories={Math.max(0, (profile?.daily_calories || 2000) - totals.calories)}
+          remainingProtein={Math.max(0, (profile?.daily_protein_g || 100) - totals.protein)}
+          remainingCarbs={Math.max(0, (profile?.daily_carbs_g || 250) - totals.carbs)}
+          remainingFat={Math.max(0, (profile?.daily_fat_g || 65) - totals.fat)}
+        />
 
         {/* Food Logs */}
         <div>
