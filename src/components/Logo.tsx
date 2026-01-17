@@ -26,7 +26,7 @@ const Logo = ({ size = "md", className }: LogoProps) => {
         alt="Coloxy" 
         className={cn("object-contain", sizeClasses[size])}
       />
-      <span className={cn("font-display font-bold text-foreground -ml-5", textSizeClasses[size])}>
+      <span className={cn("font-display font-bold text-foreground -ml-8", textSizeClasses[size])}>
         Coloxy
       </span>
     </div>
