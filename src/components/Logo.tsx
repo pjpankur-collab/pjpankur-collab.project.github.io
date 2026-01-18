@@ -20,13 +20,13 @@ const Logo = ({ size = "md", className }: LogoProps) => {
   };
 
   return (
-    <div className={cn("flex items-center gap-2 animate-fade-in", className)}>
+    <div className={cn("flex items-center gap-0 animate-fade-in", className)}>
       <img 
         src={coloxyLogo} 
         alt="Coloxy" 
         className={cn("object-contain", sizeClasses[size])}
       />
-      <span className={cn("font-display font-bold text-foreground", textSizeClasses[size])}>
+      <span className={cn("font-display font-bold text-foreground -ml-8", textSizeClasses[size])}>
         Coloxy
       </span>
     </div>
