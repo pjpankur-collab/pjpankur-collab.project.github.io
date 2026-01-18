@@ -1,16 +1,23 @@
-import coloxyLogo from "@/assets/coloxy-logo.png";
+import { Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
   size?: "sm" | "md" | "lg";
   className?: string;
+  showText?: boolean;
 }
 
-const Logo = ({ size = "md", className }: LogoProps) => {
-  const sizeClasses = {
-    sm: "h-8",
-    md: "h-12",
-    lg: "h-20",
+const Logo = ({ size = "md", className, showText = true }: LogoProps) => {
+  const iconContainerSizes = {
+    sm: "w-10 h-10",
+    md: "w-14 h-14",
+    lg: "w-16 h-16",
+  };
+
+  const iconSizes = {
+    sm: "w-5 h-5",
+    md: "w-7 h-7",
+    lg: "w-8 h-8",
   };
 
   const textSizeClasses = {
@@ -20,15 +27,18 @@ const Logo = ({ size = "md", className }: LogoProps) => {
   };
 
   return (
-    <div className={cn("flex items-center gap-0 animate-fade-in", className)}>
-      <img 
-        src={coloxyLogo} 
-        alt="Coloxy" 
-        className={cn("object-contain", sizeClasses[size])}
-      />
-      <span className={cn("font-display font-bold text-foreground -ml-8", textSizeClasses[size])}>
-        Coloxy
-      </span>
+    <div className={cn("flex flex-col items-center gap-2 animate-fade-in", className)}>
+      <div className={cn(
+        "rounded-2xl bg-primary flex items-center justify-center",
+        iconContainerSizes[size]
+      )}>
+        <Leaf className={cn("text-primary-foreground", iconSizes[size])} />
+      </div>
+      {showText && (
+        <span className={cn("font-display font-bold text-foreground", textSizeClasses[size])}>
+          Coloxy
+        </span>
+      )}
     </div>
   );
 };
