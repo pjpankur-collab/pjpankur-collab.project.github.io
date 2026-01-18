@@ -389,6 +389,23 @@ const Onboarding = () => {
         );
 
       case "target_weight":
+        const kilosToChange = data.target_weight_kg && data.weight_kg 
+          ? (data.goal === "lose_weight" 
+              ? data.weight_kg - data.target_weight_kg 
+              : data.target_weight_kg - data.weight_kg)
+          : null;
+        
+        const handleKilosChange = (kilos: number | null) => {
+          if (!kilos || !data.weight_kg) {
+            setData({ ...data, target_weight_kg: null });
+            return;
+          }
+          const targetWeight = data.goal === "lose_weight" 
+            ? data.weight_kg - kilos 
+            : data.weight_kg + kilos;
+          setData({ ...data, target_weight_kg: targetWeight });
+        };
+
         return (
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-6">
@@ -406,25 +423,27 @@ const Onboarding = () => {
             </div>
             <Input
               type="number"
-              placeholder={`Enter your target weight`}
-              value={data.target_weight_kg || ""}
-              onChange={(e) => setData({ ...data, target_weight_kg: parseFloat(e.target.value) || null })}
+              placeholder={`Enter kilos to ${data.goal === "lose_weight" ? "lose" : "gain"}`}
+              value={kilosToChange && kilosToChange > 0 ? kilosToChange : ""}
+              onChange={(e) => handleKilosChange(parseFloat(e.target.value) || null)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && canProceed()) {
                   handleNext();
                 }
               }}
-              min={data.goal === "lose_weight" ? 30 : (data.weight_kg || 0) + 1}
-              max={data.goal === "gain_weight" ? 200 : (data.weight_kg || 100) - 1}
+              min={1}
+              max={data.goal === "lose_weight" ? (data.weight_kg || 100) - 30 : 100}
               step={0.5}
               className="h-14 text-lg text-center"
             />
             <p className="text-center text-muted-foreground text-sm">
-              Target weight in kilograms (kg)
+              Kilograms (kg)
             </p>
-            {data.target_weight_kg && data.weight_kg && (
+            {kilosToChange && kilosToChange > 0 && data.target_weight_kg && (
               <div className="bg-primary/10 rounded-xl p-4 text-center">
-                <p className="text-lg font-medium text-primary">{getWeightChangeText()}</p>
+                <p className="text-lg font-medium text-primary">
+                  Target weight: {data.target_weight_kg.toFixed(1)} kg
+                </p>
               </div>
             )}
           </div>
