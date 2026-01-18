@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -235,7 +235,10 @@ const Onboarding = () => {
               ].map((option) => (
                 <button
                   key={option.value}
-                  onClick={() => setData({ ...data, gender: option.value as OnboardingData["gender"] })}
+                  onClick={() => {
+                    setData({ ...data, gender: option.value as OnboardingData["gender"] });
+                    setTimeout(() => handleNext(), 300);
+                  }}
                   className={cn(
                     "p-4 rounded-xl border-2 transition-all text-center",
                     data.gender === option.value
@@ -268,6 +271,11 @@ const Onboarding = () => {
               placeholder="Enter your age"
               value={data.age || ""}
               onChange={(e) => setData({ ...data, age: parseInt(e.target.value) || null })}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && data.age && data.age >= 10 && data.age <= 120) {
+                  handleNext();
+                }
+              }}
               min={10}
               max={120}
               className="h-14 text-lg text-center"
@@ -293,6 +301,11 @@ const Onboarding = () => {
               placeholder="Enter your weight"
               value={data.weight_kg || ""}
               onChange={(e) => setData({ ...data, weight_kg: parseFloat(e.target.value) || null })}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && data.weight_kg && data.weight_kg > 0) {
+                  handleNext();
+                }
+              }}
               min={20}
               max={300}
               step={0.1}
@@ -319,6 +332,11 @@ const Onboarding = () => {
               placeholder="Enter your height"
               value={data.height_cm || ""}
               onChange={(e) => setData({ ...data, height_cm: parseFloat(e.target.value) || null })}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && data.height_cm && data.height_cm > 0) {
+                  handleNext();
+                }
+              }}
               min={100}
               max={250}
               step={1}
@@ -348,7 +366,10 @@ const Onboarding = () => {
               ].map((option) => (
                 <button
                   key={option.value}
-                  onClick={() => setData({ ...data, goal: option.value as OnboardingData["goal"], target_weight_kg: null, timeline_months: null })}
+                  onClick={() => {
+                    setData({ ...data, goal: option.value as OnboardingData["goal"], target_weight_kg: null, timeline_months: null });
+                    setTimeout(() => handleNext(), 300);
+                  }}
                   className={cn(
                     "w-full p-4 rounded-xl border-2 transition-all flex items-center gap-4",
                     data.goal === option.value
@@ -388,6 +409,11 @@ const Onboarding = () => {
               placeholder={`Enter your target weight`}
               value={data.target_weight_kg || ""}
               onChange={(e) => setData({ ...data, target_weight_kg: parseFloat(e.target.value) || null })}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && canProceed()) {
+                  handleNext();
+                }
+              }}
               min={data.goal === "lose_weight" ? 30 : (data.weight_kg || 0) + 1}
               max={data.goal === "gain_weight" ? 200 : (data.weight_kg || 100) - 1}
               step={0.5}
@@ -428,7 +454,10 @@ const Onboarding = () => {
               ].map((option) => (
                 <button
                   key={option.value}
-                  onClick={() => setData({ ...data, timeline_months: option.value })}
+                  onClick={() => {
+                    setData({ ...data, timeline_months: option.value });
+                    setTimeout(() => handleNext(), 300);
+                  }}
                   className={cn(
                     "p-4 rounded-xl border-2 transition-all text-center",
                     data.timeline_months === option.value
@@ -446,6 +475,11 @@ const Onboarding = () => {
                 placeholder="Or enter custom months"
                 value={[3, 6, 12].includes(data.timeline_months || 0) ? "" : (data.timeline_months || "")}
                 onChange={(e) => setData({ ...data, timeline_months: parseInt(e.target.value) || null })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && data.timeline_months && data.timeline_months >= 1 && data.timeline_months <= 36) {
+                    handleNext();
+                  }
+                }}
                 min={1}
                 max={36}
                 className="h-14 text-lg text-center"
