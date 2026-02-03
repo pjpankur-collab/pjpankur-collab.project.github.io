@@ -2,31 +2,76 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Check, Crown, Scan, History, Target, AlertCircle } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { ArrowLeft, Check, Crown, Scan, History, Target, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const [showComingSoon, setShowComingSoon] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [loading, setLoading] = useState<string | null>(null);
 
-  const handlePlanClick = (planName: string) => {
-    setSelectedPlan(planName);
-    setShowComingSoon(true);
+  const handleSubscribe = async (planName: string, amount: number) => {
+    setLoading(planName);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke("create-razorpay-order", {
+        body: { amount, currency: "INR", planName },
+      });
+
+      if (error) throw error;
+
+      const options = {
+        key: data.keyId,
+        amount: data.amount,
+        currency: data.currency,
+        name: "Coloxy",
+        description: `${planName} Subscription`,
+        order_id: data.orderId,
+        handler: async (response: any) => {
+          // Verify payment
+          const { error: verifyError } = await supabase.functions.invoke("verify-razorpay-payment", {
+            body: {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              planName,
+            },
+          });
+
+          if (verifyError) {
+            toast.error("Payment verification failed");
+            return;
+          }
+
+          toast.success("Subscription activated successfully!");
+          navigate("/dashboard");
+        },
+        prefill: {
+          name: "",
+          email: "",
+        },
+        theme: {
+          color: "#22c55e",
+        },
+      };
+
+      const razorpay = new (window as any).Razorpay(options);
+      razorpay.open();
+    } catch (error: any) {
+      console.error("Payment error:", error);
+      toast.error(error.message || "Failed to initiate payment");
+    } finally {
+      setLoading(null);
+    }
   };
 
   const plans = [
     {
-      name: "Trial",
-      price: "₹20",
-      period: "2 days",
-      description: "Try everything for 2 days",
+      name: "Monthly",
+      price: "₹100",
+      period: "month",
+      amount: 100,
+      description: "Perfect for regular users",
       features: [
         { icon: Scan, text: "Unlimited food scans" },
         { icon: History, text: "Full history access" },
@@ -35,10 +80,11 @@ const Pricing = () => {
       highlight: false,
     },
     {
-      name: "Premium",
-      price: "₹260",
-      period: "month",
-      description: "Best value for regular users",
+      name: "Yearly",
+      price: "₹1000",
+      period: "year",
+      amount: 1000,
+      description: "Best value - Save ₹200!",
       features: [
         { icon: Scan, text: "Unlimited food scans" },
         { icon: History, text: "Full history access" },
@@ -50,6 +96,9 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Razorpay Script */}
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      
       <div className="sticky top-0 bg-card border-b border-border z-10">
         <div className="max-w-lg mx-auto px-4 py-3 flex items-center gap-3">
           <Button size="icon" variant="ghost" onClick={() => navigate(-1)}>
@@ -76,7 +125,7 @@ const Pricing = () => {
             >
               {plan.highlight && (
                 <div className="bg-primary text-primary-foreground text-center py-1 text-sm font-medium">
-                  Most Popular
+                  Best Value
                 </div>
               )}
               <CardHeader className="text-center pb-2">
@@ -101,9 +150,14 @@ const Pricing = () => {
                   className="w-full h-12 mt-4" 
                   size="lg"
                   variant={plan.highlight ? "default" : "outline"}
-                  onClick={() => handlePlanClick(plan.name)}
+                  onClick={() => handleSubscribe(plan.name, plan.amount)}
+                  disabled={loading !== null}
                 >
-                  {plan.name === "Trial" ? "Start Trial - ₹20" : "Subscribe Now"}
+                  {loading === plan.name ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    `Subscribe - ${plan.price}`
+                  )}
                 </Button>
               </CardContent>
             </Card>
@@ -114,28 +168,6 @@ const Pricing = () => {
           Cancel anytime. Secure payment via UPI, Cards & more.
         </p>
       </div>
-
-      <Dialog open={showComingSoon} onOpenChange={setShowComingSoon}>
-        <DialogContent className="max-w-sm">
-          <DialogHeader className="text-center">
-            <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4">
-              <AlertCircle className="w-8 h-8 text-amber-600" />
-            </div>
-            <DialogTitle className="text-xl font-display">Coming Soon!</DialogTitle>
-            <DialogDescription className="text-center pt-2">
-              Ankur Prajapati hasn't started premium on this project yet. 
-              Premium subscriptions will be available soon!
-            </DialogDescription>
-          </DialogHeader>
-          <Button 
-            className="w-full mt-4" 
-            variant="outline"
-            onClick={() => setShowComingSoon(false)}
-          >
-            Got it
-          </Button>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
