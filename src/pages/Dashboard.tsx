@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +10,8 @@ import { Camera, Drumstick, Wheat, Droplets, Trash2, Crown, Loader2 } from "luci
 import { toast } from "sonner";
 import Logo from "@/components/Logo";
 import MealSuggestions from "@/components/MealSuggestions";
+import DailyStreak from "@/components/DailyStreak";
+import HealthTip from "@/components/HealthTip";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -87,6 +90,15 @@ const Dashboard = () => {
             <p className="text-muted-foreground text-sm">Track your meals today</p>
           </div>
         </div>
+
+        {/* Daily Streak */}
+        <DailyStreak 
+          daysLogged={Math.max(1, foodLogs.length > 0 ? Math.floor((Date.now() - new Date(foodLogs[foodLogs.length - 1]?.created_at || Date.now()).getTime()) / (1000 * 60 * 60 * 24)) + 1 : 0)} 
+          hasLoggedToday={foodLogs.length > 0} 
+        />
+
+        {/* Health Tip */}
+        <HealthTip />
 
         {/* Daily Progress Card */}
         <Card className="border-0 shadow-lg overflow-hidden">
