@@ -12,6 +12,7 @@ import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import ScanFood from "./pages/ScanFood";
 import Pricing from "./pages/Pricing";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const AppRoutes = () => {
       <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/scan" element={<ProtectedRoute><ScanFood /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
