@@ -96,7 +96,11 @@ const ProfileDropdown = () => {
         </div>
         
         <DropdownMenuSeparator />
-        <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">Settings</DropdownMenuLabel>
+        
+        <DropdownMenuItem onClick={() => navigate("/profile")}>
+          <Settings className="w-4 h-4 mr-2" />
+          Profile & Settings
+        </DropdownMenuItem>
         
         <DropdownMenuItem onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
           {theme === "dark" ? (
