@@ -1,68 +1,16 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Check, Crown, Scan, History, Target, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { ArrowLeft, Check, Crown, Scan, History, Target } from "lucide-react";
 import { toast } from "sonner";
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<string | null>(null);
 
-  const handleSubscribe = async (planName: string, amount: number) => {
-    setLoading(planName);
-    
-    try {
-      const { data, error } = await supabase.functions.invoke("create-razorpay-order", {
-        body: { amount, currency: "INR", planName },
-      });
-
-      if (error) throw error;
-
-      const options = {
-        key: data.keyId,
-        amount: data.amount,
-        currency: data.currency,
-        name: "Coloxy",
-        description: `${planName} Subscription`,
-        order_id: data.orderId,
-        handler: async (response: any) => {
-          // Verify payment
-          const { error: verifyError } = await supabase.functions.invoke("verify-razorpay-payment", {
-            body: {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              planName,
-            },
-          });
-
-          if (verifyError) {
-            toast.error("Payment verification failed");
-            return;
-          }
-
-          toast.success("Subscription activated successfully!");
-          navigate("/dashboard");
-        },
-        prefill: {
-          name: "",
-          email: "",
-        },
-        theme: {
-          color: "#22c55e",
-        },
-      };
-
-      const razorpay = new (window as any).Razorpay(options);
-      razorpay.open();
-    } catch (error: any) {
-      console.error("Payment error:", error);
-      toast.error(error.message || "Failed to initiate payment");
-    } finally {
-      setLoading(null);
-    }
+  const handleSubscribe = (planName: string) => {
+    toast("Coming Soon! 🚀", {
+      description: `The ${planName} plan will be available shortly. Stay tuned!`,
+    });
   };
 
   const plans = [
@@ -150,14 +98,9 @@ const Pricing = () => {
                   className="w-full h-12 mt-4" 
                   size="lg"
                   variant={plan.highlight ? "default" : "outline"}
-                  onClick={() => handleSubscribe(plan.name, plan.amount)}
-                  disabled={loading !== null}
+                  onClick={() => handleSubscribe(plan.name)}
                 >
-                  {loading === plan.name ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                  ) : (
-                    `Subscribe - ${plan.price}`
-                  )}
+                  {`Subscribe - ${plan.price}`}
                 </Button>
               </CardContent>
             </Card>
