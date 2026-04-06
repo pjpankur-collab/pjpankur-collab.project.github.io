@@ -98,14 +98,9 @@ const Pricing = () => {
                   className="w-full h-12 mt-4" 
                   size="lg"
                   variant={plan.highlight ? "default" : "outline"}
-                  onClick={() => handleSubscribe(plan.name, plan.amount)}
-                  disabled={loading !== null}
+                  onClick={() => handleSubscribe(plan.name)}
                 >
-                  {loading === plan.name ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                  ) : (
-                    `Subscribe - ${plan.price}`
-                  )}
+                  {`Subscribe - ${plan.price}`}
                 </Button>
               </CardContent>
             </Card>
