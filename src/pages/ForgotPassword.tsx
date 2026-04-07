@@ -41,7 +41,7 @@ const ForgotPassword = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4">
             <ScanLine className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-display font-bold text-foreground">Coloxy</h1>
+          <h1 className="text-3xl font-display font-bold text-foreground">Caloxy</h1>
         </div>
 
         <Card className="border-0 shadow-xl">
