@@ -31,8 +31,8 @@ const ProfileDropdown = () => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: "Coloxy - AI Calorie Tracker",
-          text: "Track your calories with AI-powered food scanning! Try Coloxy now.",
+          title: "Caloxy - AI Calorie Tracker",
+          text: "Track your calories with AI-powered food scanning! Try Caloxy now.",
           url: window.location.origin,
         });
       } else {
