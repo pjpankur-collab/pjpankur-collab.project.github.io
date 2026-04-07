@@ -40,7 +40,7 @@ const Auth = () => {
           toast.error(error.message);
           setLoading(false);
         } else {
-          toast.success("Account created! Welcome to Coloxy.");
+          toast.success("Account created! Welcome to Caloxy.");
           pendingNavigation.current = "/onboarding";
         }
       } else {

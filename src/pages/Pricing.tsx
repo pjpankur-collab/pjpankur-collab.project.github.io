@@ -61,7 +61,7 @@ const Pricing = () => {
           <div className="w-20 h-20 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
             <Crown className="w-10 h-10 text-accent" />
           </div>
-          <h2 className="text-2xl font-display font-bold">Coloxy Premium</h2>
+          <h2 className="text-2xl font-display font-bold">Caloxy Premium</h2>
           <p className="text-muted-foreground mt-2">Unlock unlimited AI-powered food scanning</p>
         </div>
 
