@@ -222,6 +222,9 @@ const Dashboard = () => {
           <Camera className="w-6 h-6" />
           <span className="font-display font-semibold">Scan Food</span>
         </Button>
+        <footer style={{ textAlign: "center", padding: "15px" }}>
+         © {new Date().getFullYear()} Ankur prajapati. All rights reserved
+        </footer>
       </div>
     </div>
   );
