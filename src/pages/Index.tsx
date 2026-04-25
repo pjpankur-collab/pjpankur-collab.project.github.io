@@ -32,6 +32,9 @@ const Index = () => {
         <Button onClick={() => navigate("/auth")} size="lg" className="w-full h-14 text-lg">
           Get Started
         </Button>
+        <footer style={{ textAlign: "center", padding: "15px" }}>
+         © {new Date().getFullYear()} Ankur prajapati. All rights reserved
+        </footer>
       </div>
     </div>
   );
