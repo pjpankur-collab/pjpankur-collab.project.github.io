@@ -58,6 +58,9 @@ const Dashboard = () => {
     : 0;
 
   return (
+    <p style={{ textAlign: "center", padding: "10px", fontSize: "12px" }}>
+     © {new Date().getFullYear()} Ankur prajapati. All rights reserved
+    </p>
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
       <div className="bg-card border-b border-border sticky top-0 z-10">
