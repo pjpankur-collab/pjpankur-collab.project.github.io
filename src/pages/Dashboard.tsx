@@ -212,9 +212,11 @@ const Dashboard = () => {
               ))}
             </div>
           )}
-          <footer style={{ textAlign: "center", padding: "15px" }}>
-           © {new Date().getFullYear()} Ankur prajapati. All rights reserved
-         </footer>
+          <div className="pb-24">
+            <footer className="text-center py-4">
+              © {new Date().getFullYear()} Ankur Prajapati. All rights reserved.
+            </footer>
+          </div>
         </div>
       </div>
 
