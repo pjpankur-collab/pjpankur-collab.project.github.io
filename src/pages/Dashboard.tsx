@@ -216,7 +216,7 @@ const Dashboard = () => {
             <footer className="text-center py-4">
               © {new Date().getFullYear()} Ankur Prajapati. All rights reserved.
             </footer>
-          </div>
+
         </div>
       </div>
 
